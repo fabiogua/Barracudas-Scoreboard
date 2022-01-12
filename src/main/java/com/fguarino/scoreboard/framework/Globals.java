@@ -86,8 +86,8 @@ public class Globals {
     static long PERIOD_TIME = 480000;
     static long PENALTY_TIME = 20000;
     static long TIMEOUT_TIME = 60000;
-    static long SHORT_PAUSE_TIME = 60000;
-    static long LONG_PAUSE_TIME = 300000;
+    static long SHORT_PAUSE_TIME = 120000;
+    static long LONG_PAUSE_TIME = 180000;
 
     static InputStream homeLogoInput;
     static InputStream guestLogoInput;

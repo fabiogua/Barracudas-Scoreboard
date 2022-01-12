@@ -101,7 +101,7 @@
                         <Font name="Impact" size="20.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="shortPauseTextField" focusTraversable="false" prefWidth="150.0" promptText="1:00">
+                  <TextField fx:id="shortPauseTextField" focusTraversable="false" prefWidth="150.0" promptText="2:00">
                      <font>
                         <Font name="Calibri Light" size="18.0" />
                      </font>
@@ -115,7 +115,7 @@
                         <Font name="Impact" size="20.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="longPauseTextField" focusTraversable="false" prefWidth="150.0" promptText="2:00">
+                  <TextField fx:id="longPauseTextField" focusTraversable="false" prefWidth="150.0" promptText="3:00">
                      <font>
                         <Font name="Calibri Light" size="18.0" />
                      </font>
