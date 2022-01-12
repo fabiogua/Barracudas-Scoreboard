@@ -77,7 +77,7 @@ public class Timeout {
                 Globals.matchTime.timeoutLabelC.setText(String.valueOf(formattedTime));
 
                 if(getTime()<=0){
-
+                    Globals.horn.play();
                 }
                 Globals.matchTime.timeoutTextField.setPromptText(String.valueOf(Globals.timeoutRef.formattedTime));
 
