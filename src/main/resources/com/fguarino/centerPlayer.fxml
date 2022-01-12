@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="numberLabelS" alignment="TOP_CENTER" prefWidth="70.0" text="10" textFill="WHITE">
+         <font>
+            <Font name="Impact" size="60.0" />
+         </font>
+      </Label>
+      <Label fx:id="nameLabelS" prefWidth="400.0" text="V. NACHNAME" textFill="WHITE">
+         <font>
+            <Font name="Calibri Bold" size="65.0" />
+         </font>
+      </Label>
+      <Label fx:id="penaltyLabelS" prefWidth="75.0" text="20" textFill="WHITE" visible="false">
+         <font>
+            <Font name="Impact" size="60.0" />
+         </font>
+      </Label>
+   </children>
+   <padding>
+      <Insets left="20.0" right="20.0" />
+   </padding>
+</HBox>

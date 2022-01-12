@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="nameLabel" layoutX="21.0" layoutY="210.0" text="BAR" textFill="WHITE">
+         <font>
+            <Font name="Impact" size="70.0" />
+         </font>
+      </Label>
+      <Rectangle fx:id="colorRectangle" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="40.0" layoutX="7.0" layoutY="290.0" stroke="WHITE" strokeType="INSIDE" width="140.0" />
+      <Label fx:id="scoreLabel" layoutX="198.0" layoutY="186.0" prefHeight="200.0" prefWidth="195.0" text="0" textFill="WHITE">
+         <font>
+            <Font name="Impact" size="180.0" />
+         </font>
+      </Label>
+      <Circle fx:id="timeoutCircle1" fill="TRANSPARENT" layoutX="32.0" layoutY="361.0" radius="25.0" stroke="WHITE" strokeType="INSIDE" />
+      <Circle fx:id="timeoutCircle2" fill="TRANSPARENT" layoutX="116.0" layoutY="361.0" radius="25.0" stroke="WHITE" strokeType="INSIDE" />
+      <ImageView fx:id="logoView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   </children>
+   <padding>
+      <Insets left="20.0" right="20.0" />
+   </padding>
+</AnchorPane>
