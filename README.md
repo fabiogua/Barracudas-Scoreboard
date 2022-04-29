@@ -84,11 +84,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
   
-  <a href="https://github.com/fabiogua/Barracudas-Scoreboard">
-    <img src="Screenshot.png" alt="Logo" width="100%">
-  </a>
-
-
 
 ### Built With
 
@@ -136,6 +131,22 @@ This is an example of how to list things you need to use the software and how to
 ## Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+
+<a href="https://github.com/fabiogua/Barracudas-Scoreboard">
+    <img src="images/startscreen.png" alt="Logo" width="100%">
+  </a>
+  
+  <a href="https://github.com/fabiogua/Barracudas-Scoreboard">
+    <img src="images/controlboard.png" alt="Logo" width="100%">
+  </a>
+  
+  <a href="https://github.com/fabiogua/Barracudas-Scoreboard">
+    <img src="images/scoreboard.png" alt="Logo" width="100%">
+  </a>
+  
+  <a href="https://github.com/fabiogua/Barracudas-Scoreboard">
+    <img src="images/correctionmode.png" alt="Logo" width="100%">
+  </a>
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
