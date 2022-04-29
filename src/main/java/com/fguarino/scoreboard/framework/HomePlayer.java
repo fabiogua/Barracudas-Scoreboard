@@ -4,18 +4,20 @@ import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
 
-public class HomePlayer extends PlayerAbs{
+public class HomePlayer extends PlayerAbs {
 
     public HomePlayer(int i) {
         super(i);
         Globals.homePlayers.add(this);
 
-        try{
-            //FXMLLoader fxmlLoaderS = new FXMLLoader(getClass().getResource("/com/fguarino/homePlayerS.fxml"));
-            FXMLLoader fxmlLoaderCenter = new FXMLLoader(getClass().getResource("/com/fguarino/homeCenterPlayerS.fxml"));
+        try {
+            // FXMLLoader fxmlLoaderS = new
+            // FXMLLoader(getClass().getResource("/com/fguarino/homePlayerS.fxml"));
+            FXMLLoader fxmlLoaderCenter = new FXMLLoader(
+                    getClass().getResource("/com/fguarino/homeCenterPlayerS.fxml"));
             fxmlLoaderCenter.setController(this);
             centerS = fxmlLoaderCenter.load();
-            
+
             FXMLLoader fxmlLoaderS = new FXMLLoader(getClass().getResource("/com/fguarino/homePlayerS2.fxml"));
             fxmlLoaderS.setController(this);
             rootS = fxmlLoaderS.load();
@@ -29,11 +31,28 @@ public class HomePlayer extends PlayerAbs{
             e.printStackTrace();
         }
 
-        aButton.setOnAction(e -> {if(Globals.scoreboardRef.getCorrectMode()){subPenaltyTimer();}else{addPenaltyTimer(this);}});
-        sButton.setOnAction(e -> {if(Globals.scoreboardRef.getCorrectMode()){subPenalty();}else{addPenalty();}});
-        gButton.setOnAction(e -> {if(Globals.scoreboardRef.getCorrectMode()){subGoal();}else{addGoal();}});
-        playCheckBox.setOnAction(e-> activatePlayer());
-
+        aButton.setOnAction(e -> {
+            if (Globals.scoreboardRef.getCorrectMode()) {
+                subPenaltyTimer();
+            } else {
+                addPenaltyTimer(this);
+            }
+        });
+        sButton.setOnAction(e -> {
+            if (Globals.scoreboardRef.getCorrectMode()) {
+                subPenalty();
+            } else {
+                addPenalty();
+            }
+        });
+        gButton.setOnAction(e -> {
+            if (Globals.scoreboardRef.getCorrectMode()) {
+                subGoal();
+            } else {
+                addGoal();
+            }
+        });
+        playCheckBox.setOnAction(e -> activatePlayer());
 
         refreshGoal();
         refreshNameLabel();
@@ -52,14 +71,17 @@ public class HomePlayer extends PlayerAbs{
     }
 
     @Override
-    public void addGoal(){
+    public void addGoal() {
         Globals.scoreboardRef.homeTeam.addScore();
         super.addGoal();
     }
 
     @Override
-    public void subGoal(){
-        Globals.scoreboardRef.homeTeam.subScore();
-        super.subGoal();
+    public void subGoal() {
+        if (super.goal > 0) {
+            Globals.scoreboardRef.homeTeam.subScore();
+            super.subGoal();
+        }
     }
+
 }

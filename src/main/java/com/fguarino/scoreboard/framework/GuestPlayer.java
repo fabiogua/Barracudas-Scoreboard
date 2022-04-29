@@ -4,19 +4,22 @@ import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
 
-public class GuestPlayer extends PlayerAbs{
+public class GuestPlayer extends PlayerAbs {
 
     public GuestPlayer(int i) {
         super(i);
         Globals.guestPlayers.add(this);
-        try{
-            //rootS = FXMLLoader.load(getClass().getResource("/com/fguarino/guestPlayerS.fxml"));
+        try {
+            // rootS =
+            // FXMLLoader.load(getClass().getResource("/com/fguarino/guestPlayerS.fxml"));
 
-            FXMLLoader fxmlLoaderCenter = new FXMLLoader(getClass().getResource("/com/fguarino/guestCenterPlayerS.fxml"));
+            FXMLLoader fxmlLoaderCenter = new FXMLLoader(
+                    getClass().getResource("/com/fguarino/guestCenterPlayerS.fxml"));
             fxmlLoaderCenter.setController(this);
             centerS = fxmlLoaderCenter.load();
 
-            //FXMLLoader fxmlLoaderS = new FXMLLoader(getClass().getResource("/com/fguarino/guestPlayerS.fxml"));
+            // FXMLLoader fxmlLoaderS = new
+            // FXMLLoader(getClass().getResource("/com/fguarino/guestPlayerS.fxml"));
             FXMLLoader fxmlLoaderS = new FXMLLoader(getClass().getResource("/com/fguarino/guestPlayerS2.fxml"));
             fxmlLoaderS.setController(this);
             rootS = fxmlLoaderS.load();
@@ -24,17 +27,34 @@ public class GuestPlayer extends PlayerAbs{
             FXMLLoader fxmlLoaderC = new FXMLLoader(getClass().getResource("/com/fguarino/guestPlayerC.fxml"));
             fxmlLoaderC.setController(this);
             rootC = fxmlLoaderC.load();
-          
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
-        aButton.setOnAction(e -> {if(Globals.scoreboardRef.getCorrectMode()){subPenaltyTimer();}else{addPenaltyTimer(this);}});
-        sButton.setOnAction(e -> {if(Globals.scoreboardRef.getCorrectMode()){subPenalty();}else{addPenalty();}});
-        gButton.setOnAction(e -> {if(Globals.scoreboardRef.getCorrectMode()){subGoal();}else{addGoal();}});
-        playCheckBox.setOnAction(e -> activatePlayer());
 
+        aButton.setOnAction(e -> {
+            if (Globals.scoreboardRef.getCorrectMode()) {
+                subPenaltyTimer();
+            } else {
+                addPenaltyTimer(this);
+            }
+        });
+        sButton.setOnAction(e -> {
+            if (Globals.scoreboardRef.getCorrectMode()) {
+                subPenalty();
+            } else {
+                addPenalty();
+            }
+        });
+        gButton.setOnAction(e -> {
+            if (Globals.scoreboardRef.getCorrectMode()) {
+                subGoal();
+            } else {
+                addGoal();
+            }
+        });
+        playCheckBox.setOnAction(e -> activatePlayer());
 
         refreshGoal();
         refreshNameLabel();
@@ -52,15 +72,17 @@ public class GuestPlayer extends PlayerAbs{
     }
 
     @Override
-    public void addGoal(){
+    public void addGoal() {
         Globals.scoreboardRef.guestTeam.addScore();
         super.addGoal();
     }
 
     @Override
-    public void subGoal(){
-        Globals.scoreboardRef.guestTeam.subScore();
-        super.subGoal();
+    public void subGoal() {
+        if (super.goal > 0) {
+            Globals.scoreboardRef.guestTeam.subScore();
+            super.subGoal();
+        }
     }
-    
+
 }

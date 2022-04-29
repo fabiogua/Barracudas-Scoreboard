@@ -12,19 +12,20 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.fxml.FXML;
 
-public abstract class PlayerAbs{
+public abstract class PlayerAbs {
 
     int number, goal, penalty;
     String name = "Spielername";
     boolean isPenaltied = false;
     boolean active = false;
-    
+
     ArrayList<PlayerAbs> homePlayers = new ArrayList<>();
     ArrayList<PlayerAbs> guestPlayers = new ArrayList<>();
 
-    // S = ScoreboardLabel  C = ControlLabel
+    // S = ScoreboardLabel C = ControlLabel
     @FXML
-    public Label numberLabelS, goalLabelS, nameLabelS, centerNumberLabelS, penaltyLabelS, numberLabelC, goalLabelC, nameLabelC, centerNumberLabelC, penaltyLabelC;  
+    public Label numberLabelS, goalLabelS, nameLabelS, centerNumberLabelS, penaltyLabelS, numberLabelC, goalLabelC,
+            nameLabelC, centerNumberLabelC, penaltyLabelC;
     @FXML
     public Circle pen1CircleS, pen2CircleS, pen3CircleS, pen1CircleC, pen2CircleC, pen3CircleC;
     @FXML
@@ -35,15 +36,15 @@ public abstract class PlayerAbs{
     public Rectangle rect;
     @FXML
     HBox centerHBoxS, centerHBoxC;
-    Penalty pen = new Penalty(this);            
-
+    Penalty pen = new Penalty(this);
 
     Parent rootS, rootC, centerS, centerC;
 
-    public PlayerAbs(int i){
+    public PlayerAbs(int i) {
         this(i, "Spielername");
     }
-    public PlayerAbs(int i, String s){
+
+    public PlayerAbs(int i, String s) {
         name = s;
         number = i;
         goal = 0;
@@ -54,23 +55,23 @@ public abstract class PlayerAbs{
     public void initialize() {
     }
 
-    public void activatePlayer(){
+    public void activatePlayer() {
     }
 
-    public void refreshActivePlayer(){
+    public void refreshActivePlayer() {
         for (PlayerAbs p : Globals.homePlayers) {
             Globals.scoreboardRef.homeBoxS.getChildren().remove(p.centerS);
-            if(p.active){
+            if (p.active) {
                 Globals.scoreboardRef.homeBoxS.getChildren().add(p.centerS);
             }
-            
+
         }
 
         for (PlayerAbs p : Globals.guestPlayers) {
             Globals.scoreboardRef.guestBoxS.getChildren().remove(p.centerS);
-            if(p.active){
+            if (p.active) {
                 Globals.scoreboardRef.guestBoxS.getChildren().add(p.centerS);
-            }            
+            }
         }
 
         Globals.homeTeam.refreshPlayerCount();
@@ -78,15 +79,13 @@ public abstract class PlayerAbs{
 
     }
 
-    public void addGoal(){
+    public void addGoal() {
         goal++;
         refreshGoal();
     }
 
-    public void subGoal(){
-        if(goal > 0){
-            goal--;
-        }
+    public void subGoal() {
+        goal--;
         refreshGoal();
     }
 
@@ -94,28 +93,28 @@ public abstract class PlayerAbs{
         return goal;
     }
 
-    public void addPenalty(){
-        if(penalty < 3){
+    public void addPenalty() {
+        if (penalty < 3) {
             penalty++;
             Globals.scoreboardRef.stopAllTimer();
         }
         refreshPenalty();
     }
 
-    public void addPenaltyTimer(HomePlayer p){
-        if(penalty < 3 && !isPenaltied){
-            //Penalty pen = new Penalty(p);
-            pen.addPenaltyTimer();     
+    public void addPenaltyTimer(HomePlayer p) {
+        if (penalty < 3 && !isPenaltied) {
+            // Penalty pen = new Penalty(p);
+            pen.addPenaltyTimer();
             addPenalty();
 
-            if(!p.active && Globals.homeTeam.homePlayerCount >= 7){
+            if (!p.active && Globals.homeTeam.homePlayerCount >= 7) {
                 for (PlayerAbs pl : Globals.homePlayers) {
                     pl.active = false;
                     pl.playCheckBox.setSelected(false);
-                    if(pl.isPenaltied){
+                    if (pl.isPenaltied) {
                         pl.active = true;
                         pl.playCheckBox.setSelected(true);
-                    }       
+                    }
                 }
 
             }
@@ -126,20 +125,20 @@ public abstract class PlayerAbs{
         refreshPenalty();
     }
 
-    public void addPenaltyTimer(GuestPlayer p){
-        if(penalty < 3 && !isPenaltied){
-            //Penalty pen = new Penalty(p); 
+    public void addPenaltyTimer(GuestPlayer p) {
+        if (penalty < 3 && !isPenaltied) {
+            // Penalty pen = new Penalty(p);
             pen.addPenaltyTimer();
             addPenalty();
-        
-            if(!p.active && Globals.guestTeam.guestPlayerCount >= 7){
+
+            if (!p.active && Globals.guestTeam.guestPlayerCount >= 7) {
                 for (PlayerAbs pl : Globals.guestPlayers) {
                     pl.active = false;
                     pl.playCheckBox.setSelected(false);
-                    if(pl.isPenaltied){
+                    if (pl.isPenaltied) {
                         pl.active = true;
                         pl.playCheckBox.setSelected(true);
-                    }       
+                    }
                 }
 
             }
@@ -150,15 +149,15 @@ public abstract class PlayerAbs{
         refreshPenalty();
     }
 
-    public void subPenalty(){
-        if(penalty > 0){
+    public void subPenalty() {
+        if (penalty > 0) {
             penalty--;
         }
         refreshPenalty();
     }
 
-    public void subPenaltyTimer(){
-        if(isPenaltied){
+    public void subPenaltyTimer() {
+        if (isPenaltied) {
             isPenaltied = false;
             pen.deleteTimer();
         }
@@ -186,11 +185,11 @@ public abstract class PlayerAbs{
         refreshNameLabel();
     }
 
-    public void refreshNameLabel(){
+    public void refreshNameLabel() {
         nameLabelS.setText(name);
     }
 
-    public void setNameLabelFontSize(int size){
+    public void setNameLabelFontSize(int size) {
         nameLabelS.setFont(new Font("Calibri Bold", size));
         refreshNameLabel();
     }
@@ -211,29 +210,29 @@ public abstract class PlayerAbs{
         return centerS;
     }
 
-    public void refreshGoal(){
+    public void refreshGoal() {
         goalLabelS.setText(String.valueOf(goal));
         goalLabelC.setText(String.valueOf(goal));
 
-        if(goal <=0){
+        if (goal <= 0) {
             goalLabelS.setVisible(false);
             goalLabelC.setVisible(false);
-        }else{
+        } else {
             goalLabelS.setVisible(true);
             goalLabelC.setVisible(true);
         }
     }
 
-    public boolean getPenaltied(){
+    public boolean getPenaltied() {
         return isPenaltied;
     }
 
-    public void setPenaltied(boolean b){
+    public void setPenaltied(boolean b) {
         isPenaltied = b;
     }
 
-    public void refreshPenalty(){
-        switch(penalty){
+    public void refreshPenalty() {
+        switch (penalty) {
             case 0:
                 pen1CircleS.setFill(Globals.TRANSPARENT_COLOR);
                 pen1CircleS.setStroke(Globals.PLAYER_COLOR);
@@ -252,8 +251,8 @@ public abstract class PlayerAbs{
 
                 pen3CircleC.setFill(Globals.TRANSPARENT_COLOR);
                 pen3CircleC.setStroke(Globals.PLAYER_COLOR);
-            break;
-        
+                break;
+
             case 1:
                 pen1CircleS.setStroke(Globals.PLAYER_COLOR);
                 pen1CircleS.setFill(Globals.PLAYER_COLOR);
@@ -272,7 +271,7 @@ public abstract class PlayerAbs{
 
                 pen3CircleC.setFill(Globals.TRANSPARENT_COLOR);
                 pen3CircleC.setStroke(Globals.PLAYER_COLOR);
-            break;
+                break;
             case 2:
                 pen1CircleS.setFill(Globals.PLAYER_COLOR);
                 pen1CircleS.setStroke(Globals.PLAYER_COLOR);
@@ -296,8 +295,8 @@ public abstract class PlayerAbs{
                 pen3CircleC.setStroke(Globals.PLAYER_COLOR);
 
                 numberLabelC.setTextFill(Globals.PLAYER_NUMBER_COLOR);
-                //nameLabelC.setTextFill(Globals.PLAYER_COLOR);
-            break;
+                // nameLabelC.setTextFill(Globals.PLAYER_COLOR);
+                break;
 
             case 3:
                 pen1CircleS.setFill(Globals.EXCLUDED_COLOR);
@@ -312,8 +311,6 @@ public abstract class PlayerAbs{
                 numberLabelS.setTextFill(Globals.EXCLUDED_COLOR);
                 nameLabelS.setTextFill(Globals.EXCLUDED_COLOR);
 
-    
-
                 pen1CircleC.setFill(Globals.EXCLUDED_COLOR);
                 pen1CircleC.setStroke(Globals.EXCLUDED_COLOR);
 
@@ -324,10 +321,9 @@ public abstract class PlayerAbs{
                 pen3CircleC.setStroke(Globals.EXCLUDED_COLOR);
 
                 numberLabelC.setTextFill(Globals.EXCLUDED_COLOR);
-                //nameLabelC.setTextFill(Globals.EXCLUDED_COLOR);
+                // nameLabelC.setTextFill(Globals.EXCLUDED_COLOR);
 
-            break;
+                break;
         }
     }
 }
-
