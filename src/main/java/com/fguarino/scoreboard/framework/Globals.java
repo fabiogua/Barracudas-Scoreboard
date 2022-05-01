@@ -54,35 +54,33 @@ public class Globals {
     private static final double DEFAULT_SIZE = 40;
     public static final Font DEFAULT_FONT = new Font("Arial", DEFAULT_SIZE);;
     public static final Paint DEFAULT_COLOR = Color.WHITE;
-    public static final Paint BACKGROUND_COLOR = 
-      new RadialGradient(
-        0, 0, 500, 500, 700,
-        false,                  //sizing
-        CycleMethod.NO_CYCLE,                 //cycling
-        new Stop(0, Color.web("#4f7eff")),    //colors
-        new Stop(1, Color.web("#1c306a")));
+    public static final Paint BACKGROUND_COLOR = new RadialGradient(
+            0, 0, 500, 500, 700,
+            false, // sizing
+            CycleMethod.NO_CYCLE, // cycling
+            new Stop(0, Color.web("#4f7eff")), // colors
+            new Stop(1, Color.web("#1c306a")));
 
-        /*
-        public static final Paint BACKGROUND_COLOR = new RadialGradient(
-        0, 10, 0, 1, 1, true,                  //sizing
-        CycleMethod.NO_CYCLE,                 //cycling
-        new Stop(0, Color.web("#1c306a")),    //colors
-        new Stop(1, Color.web("#263ecf")));
-*/
+    /*
+     * public static final Paint BACKGROUND_COLOR = new RadialGradient(
+     * 0, 10, 0, 1, 1, true, //sizing
+     * CycleMethod.NO_CYCLE, //cycling
+     * new Stop(0, Color.web("#1c306a")), //colors
+     * new Stop(1, Color.web("#263ecf")));
+     */
     public static final Paint BACKGROUND_CORRECT_COLOR = new RadialGradient(
-        0, 0, 3, 0, 0, true,                  //sizing
-        CycleMethod.NO_CYCLE,                 //cycling
-        new Stop(0, Color.web("#eb5e34")),    //colors
-        new Stop(1, Color.web("#fc2803")));
+            0, 0, 3, 0, 0, true, // sizing
+            CycleMethod.NO_CYCLE, // cycling
+            new Stop(0, Color.web("#eb5e34")), // colors
+            new Stop(1, Color.web("#fc2803")));
     public static Background BACKGROUND = new Background(new BackgroundFill(BACKGROUND_COLOR, null, null));
-    public static Background CORRECT_BACKGROUND = new Background(new BackgroundFill(BACKGROUND_CORRECT_COLOR, null, null));
-
+    public static Background CORRECT_BACKGROUND = new Background(
+            new BackgroundFill(BACKGROUND_CORRECT_COLOR, null, null));
 
     static ArrayList<PlayerAbs> homePlayers = new ArrayList<PlayerAbs>();
     static ArrayList<PlayerAbs> guestPlayers = new ArrayList<PlayerAbs>();
     static ArrayList<Penalty> penalties = new ArrayList<Penalty>();
-    
-    
+
     static long PERIOD_TIME = 480000;
     static long PENALTY_TIME = 20000;
     static long TIMEOUT_TIME = 60000;
@@ -100,19 +98,21 @@ public class Globals {
     static CenterBox centerBox;
     static MatchSettings matchSettings;
     static Horn horn;
+    static Selenium selenium;
+    static boolean isLive = false;
 
-    static DropShadow playerShadow; 
-    static DropShadow playerBoxShadow; 
+    static DropShadow playerShadow;
+    static DropShadow playerBoxShadow;
 
     public static void setPeriodTime(long t) {
         PERIOD_TIME = t;
     }
 
-    public static void setLongPauseTime(long t){
+    public static void setLongPauseTime(long t) {
         LONG_PAUSE_TIME = t;
     }
 
-    public static void setShortPauseTime(long t){
+    public static void setShortPauseTime(long t) {
         SHORT_PAUSE_TIME = t;
     }
 }

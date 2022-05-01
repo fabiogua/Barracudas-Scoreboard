@@ -3,7 +3,6 @@ package com.fguarino.scoreboard.framework;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -25,7 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 
-public class Scoreboard{
+public class Scoreboard {
 
     public static Player[] guestPlayers;
     boolean isCorrectMode = false;
@@ -60,18 +59,16 @@ public class Scoreboard{
     Stage scoreboardStage = new Stage();
     Stage controlStage = new Stage();
 
-
     Parent rootS, rootC;
-        
-    public Scoreboard (){    
+
+    public Scoreboard() {
         Globals.scoreboardRef = this;
         horn = new Horn();
         Globals.horn = horn;
 
         playerShadow = new Shadow();
         Globals.playerShadow = playerShadow.getPlayerShadow();
-        try{
-
+        try {
 
             FXMLLoader fxmlLoaderS = new FXMLLoader(getClass().getResource("/com/fguarino/scoreboard.fxml"));
             fxmlLoaderS.setController(this);
@@ -82,17 +79,16 @@ public class Scoreboard{
             rootC = fxmlLoaderC.load();
 
         } catch (IOException e) {
-            //TODO: handle exception
+            // TODO: handle exception
         }
 
         matchNameLabel.setText(matchName);
-
 
         m = new MatchTime();
         Globals.matchTime = m;
 
         timeout = new Timeout();
-        Globals.timeoutRef = timeout; 
+        Globals.timeoutRef = timeout;
 
         homeTeam = new HomeTeam();
         Globals.homeTeam = homeTeam;
@@ -109,7 +105,6 @@ public class Scoreboard{
         homeTeamS.getChildren().add(homeTeam.getRootS());
         guestTeamS.getChildren().add(guestTeam.getRootS());
         timePaneS.getChildren().add(m.getRootS());
-                
 
         timeLabelS = m.getTimeLabelS();
         periodLabelS = m.getPeriodLabelS();
@@ -121,30 +116,29 @@ public class Scoreboard{
         guestTeamC.getChildren().add(guestTeam.getRootC());
         timePaneC.getChildren().add(m.getRootC());
 
-
         settingsMenu.setOnAction(e -> Globals.matchSettings.open());
 
         createControlStage();
         createScoreboardStage();
     }
 
-    public void createControlStage(){       
-        ObservableList<Screen> screens = Screen.getScreens();//Get list of Screens
+    public void createControlStage() {
+        ObservableList<Screen> screens = Screen.getScreens();// Get list of Screens
 
         if (screens.size() < 1) {
             Rectangle2D bounds = screens.get(0).getVisualBounds();
             controlStage.setX(bounds.getMinX());
             controlStage.setY(bounds.getMinY());
             controlStage.setFullScreen(true);
-        }else{
+        } else {
             Rectangle2D bounds = screens.get(0).getVisualBounds();
 
             controlStage.setFullScreen(false);
             controlStage.setWidth(bounds.getWidth());
             controlStage.setHeight(bounds.getHeight());
 
-            if(bounds.getHeight()/screens.get(0).getOutputScaleX() <= 800){
-               // matchNameLabel.setVisible(false);
+            if (bounds.getHeight() / screens.get(0).getOutputScaleX() <= 800) {
+                // matchNameLabel.setVisible(false);
             }
 
         }
@@ -158,23 +152,23 @@ public class Scoreboard{
             Platform.exit();
             System.exit(0);
         });
-        
+
         controlScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if(event.getCode() == KeyCode.SPACE){
-                    if(!Globals.timeoutRef.isRunning){
+                if (event.getCode() == KeyCode.SPACE) {
+                    if (!Globals.timeoutRef.isRunning) {
 
-                        if(Globals.matchTime.getPaused()){
+                        if (Globals.matchTime.getPaused()) {
                             startAllTimer();
-                        }else{
+                        } else {
                             stopAllTimer();
                         }
                     }
                 }
-                if(event.getCode() == KeyCode.C){
+                if (event.getCode() == KeyCode.C) {
                     setCorrectMode(!getCorrectMode());
-                    if(getCorrectMode()){
+                    if (getCorrectMode()) {
                         rootCC.setBackground(Globals.CORRECT_BACKGROUND);
 
                         Globals.matchTime.periodLabelC.setVisible(false);
@@ -183,13 +177,13 @@ public class Scoreboard{
 
                         Globals.matchTime.periodTextField.setVisible(true);
 
-                        if(Globals.timeoutRef.getRunning()){
+                        if (Globals.timeoutRef.getRunning()) {
                             Globals.matchTime.timeoutTextField.setVisible(true);
-                        }else{
-                            Globals.matchTime.timeTextField.setVisible(true);   
+                        } else {
+                            Globals.matchTime.timeTextField.setVisible(true);
                         }
 
-                    }else{
+                    } else {
                         rootCC.setBackground(Globals.BACKGROUND);
 
                         Globals.matchTime.timeTextField.setVisible(false);
@@ -197,43 +191,43 @@ public class Scoreboard{
                         Globals.matchTime.timeoutTextField.setVisible(false);
                         Globals.matchTime.periodLabelC.setVisible(true);
 
-                        if(Globals.timeoutRef.getRunning()){
+                        if (Globals.timeoutRef.getRunning()) {
                             Globals.matchTime.timeoutLabelC.setVisible(true);
-                        }else{
+                        } else {
                             Globals.matchTime.timeLabelC.setVisible(true);
                         }
                     }
                 }
 
-                if(event.getCode() == KeyCode.ENTER){
+                if (event.getCode() == KeyCode.ENTER) {
                     horn.play();
                 }
             }
         });
 
-        controlScene.setOnKeyReleased(new EventHandler<KeyEvent>(){
+        controlScene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if(event.getCode() == KeyCode.ENTER){
+                if (event.getCode() == KeyCode.ENTER) {
                     horn.stop();
-                }            
+                }
             }
         });
 
-        //controlStage.show();
+        // controlStage.show();
     }
 
-    public void createScoreboardStage(){
+    public void createScoreboardStage() {
         Scene scoreboardScene = new Scene(rootS);
         scoreboardStage.setScene(scoreboardScene);
 
-        ObservableList<Screen> screens = Screen.getScreens();//Get list of Screens
+        ObservableList<Screen> screens = Screen.getScreens();// Get list of Screens
         if (screens.size() > 1) {
             Rectangle2D bounds = screens.get(1).getVisualBounds();
             scoreboardStage.setX(bounds.getMinX());
             scoreboardStage.setY(bounds.getMinY());
             scoreboardStage.setFullScreen(true);
-        }else{
+        } else {
             Rectangle2D bounds = screens.get(0).getVisualBounds();
 
             scoreboardStage.setFullScreen(true);
@@ -244,32 +238,34 @@ public class Scoreboard{
             Platform.exit();
             System.exit(0);
         });
-        //scoreboardStage.show();
+        // scoreboardStage.show();
     }
 
-    public void stopAllTimer(){
+    public void stopAllTimer() {
         Globals.matchTime.stop();
-        Globals.matchTime.timeLabelC.setTextFill(Color.RED);;
+        Globals.matchTime.timeLabelC.setTextFill(Color.RED);
+        ;
 
-        for(Penalty p : Globals.penalties){
+        for (Penalty p : Globals.penalties) {
             p.getPenaltyTimer().stop();
         }
     }
 
-    public void startAllTimer(){
+    public void startAllTimer() {
         Globals.matchTime.start();
-        Globals.matchTime.timeLabelC.setTextFill(Color.WHITE);;
+        Globals.matchTime.timeLabelC.setTextFill(Color.WHITE);
+        ;
 
-        for(Penalty p : Globals.penalties){
+        for (Penalty p : Globals.penalties) {
             p.getPenaltyTimer().start();
         }
     }
 
-    public boolean getCorrectMode(){
+    public boolean getCorrectMode() {
         return isCorrectMode;
     }
 
-    public void setCorrectMode(boolean b){
+    public void setCorrectMode(boolean b) {
         isCorrectMode = b;
     }
 
@@ -278,7 +274,7 @@ public class Scoreboard{
         refreshMatchNameLabel();
     }
 
-    public void refreshMatchNameLabel(){
+    public void refreshMatchNameLabel() {
         matchNameLabel.setText(matchName);
     }
 

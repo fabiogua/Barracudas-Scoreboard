@@ -96,7 +96,7 @@ public abstract class PlayerAbs {
     public void addPenalty() {
         if (penalty < 3) {
             penalty++;
-            Globals.scoreboardRef.stopAllTimer();
+            // Globals.scoreboardRef.stopAllTimer();
         }
         refreshPenalty();
     }
