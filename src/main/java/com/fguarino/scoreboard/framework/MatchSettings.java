@@ -192,6 +192,7 @@ public class MatchSettings {
     public void checkNameLabel() {
         if (isNameActive) {
             addNameLabel();
+            checkLive();
         } else {
             removeNameLabel();
         }
@@ -203,7 +204,6 @@ public class MatchSettings {
             Globals.selenium = selenium;
             selenium.start();
         } else {
-            removeNameLabel();
         }
     }
 

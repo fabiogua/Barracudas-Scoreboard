@@ -1,8 +1,6 @@
 
 package com.fguarino.scoreboard.framework;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -24,7 +22,7 @@ public class Selenium {
         driver.get("https://lizenz.dsv.de/Live.aspx");
 
         try {
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
