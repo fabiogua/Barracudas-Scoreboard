@@ -1,14 +1,10 @@
 package com.fguarino.scoreboard.framework;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 
 public class Penalty {
     Timer penaltyTimer;
@@ -79,7 +75,8 @@ public class Penalty {
         player.penaltyLabelS.setVisible(true);
         player.penaltyLabelC.setVisible(true);
         player.setPenaltied(true);
-
+        if(!Globals.isAutoStop)
+        penaltyTimer.start();
     }
 
     public long getTime() {

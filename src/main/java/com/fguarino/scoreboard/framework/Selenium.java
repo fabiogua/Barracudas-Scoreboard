@@ -1,6 +1,8 @@
 
 package com.fguarino.scoreboard.framework;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -14,7 +16,7 @@ public class Selenium {
 
     void start() {
 
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "chromedriver\\chromedriver107.exe");
         driver = new ChromeDriver();
 
         driver.manage().deleteAllCookies();
@@ -22,9 +24,8 @@ public class Selenium {
         driver.get("https://lizenz.dsv.de/Live.aspx");
 
         try {
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         // WebElement match = driver.findElement(By.id("2021_190__P_19"));

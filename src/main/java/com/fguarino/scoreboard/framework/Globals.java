@@ -87,6 +87,9 @@ public class Globals {
     static long SHORT_PAUSE_TIME = 120000;
     static long LONG_PAUSE_TIME = 180000;
 
+    static boolean isLive = false;
+    static boolean isAutoStop = false;
+
     static InputStream homeLogoInput;
     static InputStream guestLogoInput;
 
@@ -99,7 +102,6 @@ public class Globals {
     static MatchSettings matchSettings;
     static Horn horn;
     static Selenium selenium;
-    static boolean isLive = false;
 
     static DropShadow playerShadow;
     static DropShadow playerBoxShadow;

@@ -2,7 +2,6 @@ package com.fguarino.scoreboard.framework;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Timer;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -37,7 +36,7 @@ public class MatchSettings {
     @FXML
     Button startButton, quitButton;
     @FXML
-    CheckBox showNameCheckBox;
+    CheckBox showNameCheckBox, autoStopCheckBox, liveCheckBox;
 
     boolean isNameActive = false;
     @FXML
@@ -167,9 +166,16 @@ public class MatchSettings {
                 e -> Globals.matchTime.setLongPauseTime(Long.valueOf(longPauseTextField.getText()) * 60000));
         showNameCheckBox.setOnAction(e -> {
             isNameActive = !isNameActive;
-            Globals.isLive = true;
 
             checkNameLabel();
+        });
+
+        autoStopCheckBox.setOnAction(e -> {
+            Globals.isAutoStop = !Globals.isAutoStop;
+        });
+
+        liveCheckBox.setOnAction(e -> {
+            Globals.isLive = !Globals.isLive;
         });
 
         scene = new Scene(getRoot());
@@ -181,6 +187,8 @@ public class MatchSettings {
     }
 
     public void startMatch() {
+        checkLive();
+        liveCheckBox.setDisable(true);
         startButton.setDisable(true);
         removeNameLabel();
         checkNameLabel();
@@ -192,7 +200,6 @@ public class MatchSettings {
     public void checkNameLabel() {
         if (isNameActive) {
             addNameLabel();
-            checkLive();
         } else {
             removeNameLabel();
         }
@@ -203,7 +210,6 @@ public class MatchSettings {
             Selenium selenium = new Selenium();
             Globals.selenium = selenium;
             selenium.start();
-        } else {
         }
     }
 
@@ -262,7 +268,6 @@ public class MatchSettings {
                 fxmlLoaderS.setController(this);
                 pRoot = fxmlLoaderS.load();
             } catch (Exception e) {
-                // TODO: handle exception
             }
 
             numberLabel.setText(String.valueOf(p.number));
