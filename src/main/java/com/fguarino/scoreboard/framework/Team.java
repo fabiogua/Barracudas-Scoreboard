@@ -127,10 +127,7 @@ public abstract class Team {
 
     public void addTimeOut(){
         if(timeOut < 2){
-            if(!Globals.timeoutRef.getRunning()){
                 timeOut++;
-                Globals.timeoutRef.setTimer();
-            }
         }
         Globals.scoreboardRef.stopAllTimer();
         refreshTimeOut();

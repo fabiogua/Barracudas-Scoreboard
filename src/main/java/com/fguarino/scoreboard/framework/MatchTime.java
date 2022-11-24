@@ -31,7 +31,7 @@ public class MatchTime {
     @FXML
     Label periodLabelS, timeLabelS, timeoutLabelS, periodLabelC, timeLabelC, timeoutLabelC;
     @FXML
-    Button removeTimerButton;
+    Button removeTimerButton, addTimerButton;
 
     @FXML
     TextField timeTextField, periodTextField, timeoutTextField;
@@ -58,7 +58,6 @@ public class MatchTime {
             rootC = fxmlLoaderC.load();
 
         } catch (Exception e) {
-            // TODO: handle exception
         }
 
         timeTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {

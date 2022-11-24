@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-1.0" maxWidth="-Infinity" prefHeight="380.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="timeLabelC" text="08:00" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
@@ -23,7 +23,12 @@
             <Font name="Impact" size="150.0" />
          </font>
       </Label>
-      <Button fx:id="removeTimerButton" focusTraversable="false" layoutX="300.0" layoutY="64.0" mnemonicParsing="false" text="X" visible="false" AnchorPane.rightAnchor="0.0">
+      <Button fx:id="removeTimerButton" focusTraversable="false" layoutX="300.0" layoutY="64.0" mnemonicParsing="false" text="X" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0">
+         <font>
+            <Font name="Impact" size="30.0" />
+         </font>
+      </Button>
+      <Button fx:id="addTimerButton" focusTraversable="false" layoutX="310.0" layoutY="74.0" mnemonicParsing="false" text="T" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0">
          <font>
             <Font name="Impact" size="30.0" />
          </font>

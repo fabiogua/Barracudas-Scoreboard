@@ -9,9 +9,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="230.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="playerCountLabel" alignment="CENTER" layoutX="14.0" layoutY="79.0" text="7/8" textFill="WHITE" AnchorPane.leftAnchor="0.0">
+      <Label fx:id="playerCountLabel" alignment="CENTER" layoutX="14.0" layoutY="79.0" text="7/8" textFill="WHITE" visible="false" AnchorPane.leftAnchor="0.0">
          <font>
             <Font name="Impact" size="50.0" />
          </font>
@@ -29,15 +29,15 @@
       </Label>
       <HBox alignment="CENTER" layoutX="186.0" layoutY="126.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0" AnchorPane.rightAnchor="0.0">
          <children>
+            <Button fx:id="timeOutButtonC" focusTraversable="false" mnemonicParsing="false" text="+">
+               <font>
+                  <Font name="Impact" size="20.0" />
+               </font>
+            </Button>
             <Circle fx:id="timeoutCircle1C" fill="TRANSPARENT" radius="25.0" stroke="WHITE" strokeType="INSIDE" />
             <Circle fx:id="timeoutCircle2C" fill="TRANSPARENT" radius="25.0" stroke="WHITE" strokeType="INSIDE" />
          </children>
       </HBox>
-      <Button fx:id="timeOutButtonC" focusTraversable="false" layoutX="35.0" layoutY="157.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="20.0">
-         <font>
-            <Font name="Impact" size="20.0" />
-         </font>
-      </Button>
    </children>
    <padding>
       <Insets left="20.0" right="20.0" />

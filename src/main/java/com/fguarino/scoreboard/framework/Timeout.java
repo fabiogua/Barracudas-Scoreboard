@@ -35,14 +35,17 @@ public class Timeout {
             rootC = fxmlLoaderC.load();
             
         } catch (Exception e) {
-            //TODO: handle exception
         }
 
         timer = new Timer();
 
 
         Globals.matchTime.removeTimerButton.setOnAction(e -> { 
-                stop();
+            stop();
+        });
+
+        Globals.matchTime.addTimerButton.setOnAction(e -> { 
+            setTimer();
         });
 
         FunctionPtr handler = new FunctionPtr() {
@@ -106,6 +109,7 @@ public class Timeout {
             Globals.matchTime.periodLabelS.setVisible(false);
             Globals.matchTime.timeLabelC.setVisible(false);
             Globals.matchTime.removeTimerButton.setVisible(true);
+            Globals.matchTime.addTimerButton.setVisible(false);
             timer.start();
         }
     }
@@ -118,6 +122,7 @@ public class Timeout {
         Globals.matchTime.periodLabelS.setVisible(true);
         Globals.matchTime.timeLabelC.setVisible(true);
         Globals.matchTime.removeTimerButton.setVisible(false);
+        Globals.matchTime.addTimerButton.setVisible(true);
 
     }
 

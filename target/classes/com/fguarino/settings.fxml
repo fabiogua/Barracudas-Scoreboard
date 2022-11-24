@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #4A76F0;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #4A76F0;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <VBox fx:id="homeBox" alignment="TOP_CENTER" spacing="10.0" style="-fx-background-color: #3F65D0;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -124,12 +124,40 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="40.0" spacing="30.0">
                <children>
-                  <Label prefWidth="150.0" text="Spielernamen:" textFill="WHITE">
+                  <Label prefWidth="270.0" text="Spielernamen:" textFill="WHITE">
                      <font>
                         <Font name="Impact" size="20.0" />
                      </font>
                   </Label>
                   <CheckBox fx:id="showNameCheckBox" mnemonicParsing="false">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="244.0" prefHeight="40.0" spacing="30.0">
+               <children>
+                  <Label prefWidth="270.0" text="Autostop:" textFill="WHITE">
+                     <font>
+                        <Font name="Impact" size="20.0" />
+                     </font>
+                  </Label>
+                  <CheckBox fx:id="autoStopCheckBox" mnemonicParsing="false">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" spacing="30.0">
+               <children>
+                  <Label prefHeight="24.0" prefWidth="270.0" text="Live Chrome 107 (BETA):" textFill="WHITE">
+                     <font>
+                        <Font name="Impact" size="20.0" />
+                     </font>
+                  </Label>
+                  <CheckBox fx:id="liveCheckBox" mnemonicParsing="false">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -149,9 +177,6 @@
                      </font>
                   </Button>
                </children>
-               <VBox.margin>
-                  <Insets bottom="20.0" top="30.0" />
-               </VBox.margin>
             </HBox>
          </children>
          <padding>
