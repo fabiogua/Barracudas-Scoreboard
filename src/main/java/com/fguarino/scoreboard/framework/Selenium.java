@@ -1,9 +1,12 @@
 
 package com.fguarino.scoreboard.framework;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,120 +15,100 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Selenium {
     static WebDriver driver;
-    static int synced = 1;
+    static ArrayList<Integer> syncedValueList = new ArrayList<>();
+    Matcher matcher;
 
     void start() {
 
-        System.setProperty("webdriver.chrome.driver", "chromedriver\\chromedriver107.exe");
+        System.setProperty("webdriver.chrome.driver", "chromedriver\\chromedriver109.exe");
         driver = new ChromeDriver();
 
         driver.manage().deleteAllCookies();
 
         driver.get("https://lizenz.dsv.de/Live.aspx");
-
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // WebElement match = driver.findElement(By.id("2021_190__P_19"));
-        // match.click();
-        // WebElement table = driver.findElement(By.id("leftTable"));
-        // System.out.println("\n\n" + table.getAttribute("innerHTML") + "\n\n");
-
-        refresh();
-
     }
 
     void refresh() {
+        /*
+         * <th>Ab</th>
+         * <th>Zeit</th>
+         * <th>Heim</th>
+         * <th>Gast</th>
+         * <th>Spieler</th>
+         * <th>Ereignis</th>
+         * <th>Tore</th>
+         */
+
         WebElement table = driver.findElement(By.id("leftTable"));
-        String tableHtml = table.getAttribute("innerHTML");
-        String[] tableBody = tableHtml.split("<tbody>");
-        tableBody = tableBody[1].split("</tbody>");
+        String input = table.getAttribute("innerHTML").split("tbody>")[1];
 
-        String[] rowText = tableBody[0].split("</tr>");
+        /*
+         * REGGEX101:
+         * 
+         * "<tr.+?((strikeplay).+)?<td>(\d+?)</td><td>(\d+?)</td><td>(\d+?):(\d+?)</td><td>(\d+?)?</td><td>(\d+?)?</td><td>((.+?),(.+?))?</td><td>(.+?)?</td><td>((\d+?):(\d+?))?</td></tr>"gm
+         * 
+         */
+        int id = -1, homePlayer = -1, guestPlayer = -1;
+        String name = "", event = "";
+        Boolean strike = false;
 
-        for (String string : rowText) {
-            rowText = string.split("<td>");
+        Pattern pattern = Pattern.compile(
+                "<tr.+?(strikeplay\">)?<td>(\\d+?)</td><td>\\d+?</td><td>\\d+?:\\d+?</td><td>(\\d+?)?</td><td>(\\d+?)?</td><td>(.+?)?</td><td>(.+?)?</td><td>(\\d+?:\\d+?)?</td></tr>");
+        matcher = pattern.matcher(input);
+        while (matcher.find()) {
+            for (int i = 1; i < matcher.groupCount(); i++) {
+                /*
+                 * group 1: strikeplay
+                 * group 2: Ereignis Nr.
+                 * group 3: Heim Nr.
+                 * group 4: Gast Nr.
+                 * group 5: Nachname, V.
+                 * group 6: Ereignis
+                 * 
+                 */
 
-            int id = -1;
-            int quater = -1;
-            String time = "";
-            int homePlayer = -1;
-            int guestPlayer = -1;
-            String event = "";
-            String name = "";
+                id = Integer.valueOf(matcher.group(2));
+                strike = matcher.group(1) != null;
 
-            int cnt = 0;
-            for (String cellText : rowText) {
-                if (!(cnt == 0)) {
-
-                    cellText = cellText.substring(0, cellText.length() - 5);
-
-                    switch (cnt) {
-                        case 1:
-                            id = Integer.valueOf(cellText);
-
-                            break;
-
-                        case 2:
-                            quater = Integer.valueOf(cellText);
-
-                            break;
-
-                        case 3:
-                            time = cellText;
-
-                            break;
-
-                        case 4:
-                            try {
-                                homePlayer = Integer.valueOf(cellText);
-
-                            } catch (Exception e) {
-                                homePlayer = 0;
-                            }
-                            break;
-
-                        case 5:
-
-                            try {
-                                guestPlayer = Integer.valueOf(cellText);
-                            } catch (Exception e) {
-                                guestPlayer = 0;
-
-                            }
-                            break;
-                        case 6:
-                            name = cellText;
-
-                            break;
-
-                        case 7:
-                            event = cellText;
-
-                            break;
-
-                        default:
-                            break;
+                try {
+                    homePlayer = Integer.valueOf(matcher.group(3));
+                } catch (Exception e) {
+                    if (matcher.group(3) == null) {
+                        homePlayer = -1;
+                    } else if (matcher.group(3).equals("X")) {
+                        homePlayer = 0;
                     }
-
                 }
 
-                cnt++;
+                try {
+                    guestPlayer = Integer.valueOf(matcher.group(4));
+                } catch (Exception e) {
+
+                    if (matcher.group(4) == null) {
+                        guestPlayer = -1;
+
+                    } else if (matcher.group(4).equals("X")) {
+                        guestPlayer = 0;
+                    }
+                }
+
+                name = matcher.group(5);
+                event = matcher.group(6);
+
             }
-            // System.out.println("ID: " + id + "\tH: " + homePlayer + "\tG: " + guestPlayer
-            // + "\tEvent: " + event);
-            synchronizeToScoreBoard(id, homePlayer, guestPlayer, event);
 
-            // System.out.println();
-
+            synchronizeToScoreBoard(id, strike, homePlayer, guestPlayer, event);
         }
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
     }
 
-    void synchronizeToScoreBoard(int id, int homePlayer, int guestPlayer, String e) {
+    void synchronizeToScoreBoard(int id, Boolean strike, int homePlayer, int guestPlayer, String e) {
 
-        if (id == synced) {
+        if (!syncedValueList.contains(id) && !strike) {
+            syncedValueList.add(id);
 
             if (homePlayer > 0)
 
@@ -184,8 +167,56 @@ public class Selenium {
                         break;
                 }
             }
-            synced++;
-            System.out.println("synced: " + synced);
+        } else if (syncedValueList.contains(id) && strike) {
+            if (homePlayer > 0) {
+                switch (e) {
+                    case "Ausschluss mit Ersatz":
+                        System.out.println("AmE H:" + homePlayer);
+                        // kp weil alle 3 wegmachen ist blöd?
+                        break;
+
+                    case "Ausschlussf.":
+                        System.out.println("A H:" + homePlayer);
+                        Globals.homePlayers.get(homePlayer - 1).subPenalty();
+                        break;
+                    case "Strafwurff.":
+                        System.out.println("S H:" + homePlayer);
+                        Globals.homePlayers.get(homePlayer - 1).subPenalty();
+                        break;
+                    case "Tor":
+                        System.out.println("T H:" + homePlayer);
+                        Globals.homePlayers.get(homePlayer - 1).subGoal();
+
+                        break;
+
+                    default:
+                        break;
+                }
+
+            } else {
+                switch (e) {
+                    case "Ausschluss mit Ersatz":
+                        System.out.println("AmE G:" + guestPlayer);
+                        break;
+
+                    case "Ausschlussf.":
+                        System.out.println("A G:" + guestPlayer);
+                        Globals.guestPlayers.get(guestPlayer - 1).subPenalty();
+                        break;
+                    case "Strafwurff.":
+                        System.out.println("S G:" + guestPlayer);
+                        Globals.guestPlayers.get(guestPlayer - 1).subPenalty();
+                        break;
+                    case "Tor":
+                        System.out.println("T G:" + guestPlayer);
+                        Globals.guestPlayers.get(guestPlayer - 1).subGoal();
+
+                        break;
+
+                    default:
+                        break;
+                }
+            }
         }
     }
 }
